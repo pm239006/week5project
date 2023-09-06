@@ -277,20 +277,15 @@ SELECT add_invoice(203, 47, '503',8000,'4' )
 
 CREATE OR REPLACE PROCEDURE car_serviced(is_serviced BOOLEAN, _car_id INTEGER)
 LANGUAGE plpgsql
-RETURNS BOOLEAN
 AS $$
 BEGIN
-	ALTER TABLE car
 		UPDATE car
-		SET is_serviced = '1'
+		SET is_serviced = true
 		WHERE car_id = _car_id
-		
-		UPDATE customer
-		SET is_serviced = '0'
-		WHERE car_id != _car_id
-END;
+COMMIT;
+END
 $$
-
+;
 
 CALL car_serviced()
 
